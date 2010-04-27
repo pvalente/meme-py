@@ -7,6 +7,11 @@ class Meme(object):
     def get(name=None):
         '''Gets a Meme by it's name/user, e.g.: "gchapiewski".'''
         return Meme.meme_repository.get(name)
+    
+    @staticmethod
+    def get_by_guid(guid=None):
+        '''Gets a Meme by it's guid, e.g.: "ZZR4B57H4FTGKOC4AUWPOY4FWM".'''
+        return Meme.meme_repository.get_by_guid(guid)
 
     @staticmethod
     def search(query, count=10):
