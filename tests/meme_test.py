@@ -29,6 +29,16 @@ class MemeRepositoryTest(unittest.TestCase):
         meme = meme_repository.get('some_name')
         assert meme.guid == '123'
     
+    def test_should_get_meme_by_guid(self):
+        yql_query = 'SELECT * FROM meme.info WHERE owner_guid = "123"'
+        yql_mock = Mock()
+        when(yql_mock).execute(yql_query).thenReturn(self.single_query_result)
+        
+        meme_repository = MemeRepository()
+        meme_repository.yql = yql_mock
+        meme = meme_repository.get_by_guid('123')
+        assert meme.name == 'john'
+    
     def test_should_raise_meme_not_found_error_when_cannot_find_meme_by_name(self):
          yql_query = 'SELECT * FROM meme.info WHERE name = "some_name"'
 
